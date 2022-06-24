@@ -1,0 +1,259 @@
+###Revising the Select Query-1
+
+Query all columns for all American cities in CITY with populations larger than 100,000. The CountryCode for America is USA.
+
+Input Format
+
+The CITY table is described as follows:
+
+Field	Type
+ID	NUMBER
+NAME	VARCHAR2(17)
+COUNTRY CODE	VARCHAR2(3)
+DISTRICT	VARCHAR2(20)
+POPULATION	NUMBER
+Solution
+
+SELECT * FROM CITY WHERE COUNTRYCODE = 'USA' AND POPULATION > 100000;
+
+
+###Revising the Select Query-2
+
+Query the names of all American cities in CITY with populations larger than 120,000. The CountryCode for America is USA.
+
+Input Format
+
+The CITY table is described as follows:
+
+Field	Type
+ID	NUMBER
+NAME	VARCHAR2(17)
+COUNTRY CODE	VARCHAR2(3)
+DISTRICT	VARCHAR2(20)
+POPULATION	NUMBER
+Solution
+
+SELECT NAME FROM CITY WHERE COUNTRYCODE = 'USA' AND POPULATION > 120000;
+###Select All
+
+Query all columns for every row in the CITY table.
+
+Input Format
+
+The CITY table is described as follows:
+
+Field	Type
+ID	NUMBER
+NAME	VARCHAR2(17)
+COUNTRY CODE	VARCHAR2(3)
+DISTRICT	VARCHAR2(20)
+POPULATION	NUMBER
+Solution
+
+SELECT * FROM CITY;
+###Select by ID
+
+Query all columns for a city in CITY with the ID 1661.
+
+Input Format
+
+The CITY table is described as follows:
+
+Field	Type
+ID	NUMBER
+NAME	VARCHAR2(17)
+COUNTRY CODE	VARCHAR2(3)
+DISTRICT	VARCHAR2(20)
+POPULATION	NUMBER
+Solution
+
+SELECT * FROM CITY WHERE ID = 1661; 
+###Japanese Cities' Detail
+
+Query the details for all the Japanese cities in CITY. The COUNTRYCODE for Japan is JPN.
+
+Input Format
+
+The CITY table is described as follows:
+
+Field	Type
+ID	NUMBER
+NAME	VARCHAR2(17)
+COUNTRY CODE	VARCHAR2(3)
+DISTRICT	VARCHAR2(20)
+POPULATION	NUMBER
+Solution
+
+SELECT * FROM CITY WHERE COUNTRYCODE = 'JPN';        
+###Japanese Cities' Name
+
+Query the the names of all the Japanese cities in CITY. The COUNTRYCODE for Japan is JPN.
+
+Input Format
+
+The CITY table is described as follows:
+
+Field	Type
+ID	NUMBER
+NAME	VARCHAR2(17)
+COUNTRY CODE	VARCHAR2(3)
+DISTRICT	VARCHAR2(20)
+POPULATION	NUMBER
+Solution
+
+SELECT NAME FROM CITY WHERE COUNTRYCODE = 'JPN';        
+###Weather Observation Station 1
+
+Query a list of CITY and STATE from STATION.
+
+Input Format
+
+The STATION table is described as follows:
+
+Field	Type
+ID	NUMBER
+CITY	VARCHAR2(21)
+STATE	VARCHAR2(2)
+LAT_N	NUMBER
+LONG_W	NUMBER
+Solution
+
+SELECT CITY,STATE FROM STATION;       
+###Weather Observation Station 3
+
+Query a list of CITY names from STATION with even ID numbers only. You may print the results in any order, but must exclude duplicates from your answer.
+
+Input Format
+
+The STATION table is described as follows:
+
+Field	Type
+ID	NUMBER
+CITY	VARCHAR2(21)
+STATE	VARCHAR2(2)
+LAT_N	NUMBER
+LONG_W	NUMBER
+where LAT_N is the northern latitude and LONG_W is the western longitude.
+
+Solution
+
+SELECT DISTINCT CITY FROM STATION WHERE MOD(ID,2)=0 ORDER BY CITY ASC;       
+###Weather Observation Station 4
+
+Let NUM be the number of CITY entries in STATION, and NUMunique be the number of unique cities. Query the value of NUM−NUMunique from STATION.
+
+In other words, query the number of non-unique CITY names in STATION by subtracting the number of unique CITY entries in the table from the total number of CITY entries in the table.
+
+Input Format
+
+The STATION table is described as follows:
+
+Field	Type
+ID	NUMBER
+CITY	VARCHAR2(21)
+STATE	VARCHAR2(2)
+LAT_N	NUMBER
+LONG_W	NUMBER
+where LAT_N is the northern latitude and LONG_W is the western longitude.
+
+Solution
+
+SELECT COUNT(CITY) - COUNT(DISTINCT CITY) FROM STATION;       
+###Weather Observation Station 5
+
+Query the two cities in STATION with the shortest and longest CITY names, as well as their respective lengths (i.e.: number of characters in the name). If there is more than one smallest or largest city, choose the one that comes first when ordered alphabetically.
+
+Input Format
+
+The STATION table is described as follows:
+
+Field	Type
+ID	NUMBER
+CITY	VARCHAR2(21)
+STATE	VARCHAR2(2)
+LAT_N	NUMBER
+LONG_W	NUMBER
+where LAT_N is the northern latitude and LONG_W is the western longitude.
+
+Sample Input
+
+Let's say that CITY only has four entries: DEF, ABC, PQRS and WXY
+
+Sample Output
+
+ABC 3
+
+PQRS 4
+
+Explanation
+
+When ordered alphabetically, the CITY names are listed as ABC, DEF, PQRS, and WXY, with the respective lengths 3,3,4,3,3,4, and 33. The longest-named city is obviously PQRS, but there are 33 options for shortest-named city; we choose ABC, because it comes first alphabetically.
+
+Solution
+select TOP 1 city, DATALENGTH(city) from station order by  DATALENGTH(city) DESC,city;
+select TOP 1 city, DATALENGTH(city) from station order by  DATALENGTH(city) asc ,city;
+
+
+Query the list of CITY names starting with vowels (i.e., a, e, i, o, or u) from STATION. Your result cannot contain duplicates.
+
+Input Format
+
+The STATION table is described as follows:
+
+
+where LAT_N is the northern latitude and LONG_W is the western longitude.
+
+SOLUTION
+
+SELECT CITY FROM STATION WHERE CITY LIKE 'a%';
+SELECT CITY FROM STATION WHERE CITY LIKE 'e%';
+SELECT CITY FROM STATION WHERE CITY LIKE 'i%';
+SELECT CITY FROM STATION WHERE CITY LIKE 'o%';
+SELECT CITY FROM STATION WHERE CITY LIKE 'u%';
+
+####Query the list of CITY names ending with vowels (a, e, i, o, u) from STATION. Your result cannot contain duplicates.
+
+Input Format
+
+The STATION table is described as follows:
+
+Field	Type
+ID	NUMBER
+CITY	VARCHAR2(21)
+STATE	VARCHAR2(2)
+LAT_N	NUMBER
+LONG_W	NUMBER
+where LAT_N is the northern latitude and LONG_W is the western longitude.
+
+SOLUTION
+SELECT DISTINCT CITY FROM STATION WHERE CITY LIKE '%a';
+SELECT DISTINCT CITY FROM STATION WHERE CITY LIKE '%e';
+SELECT DISTINCT CITY FROM STATION WHERE CITY LIKE '%i';
+SELECT DISTINCT CITY FROM STATION WHERE CITY LIKE '%o';
+SELECT DISTINCT CITY FROM STATION WHERE CITY LIKE '%u';
+
+
+####Query the list of CITY names from STATION which have vowels (i.e., a, e, i, o, and u) as both their first and last characters. Your result cannot contain duplicates.
+
+Input Format
+
+The STATION table is described as follows:
+Field	Type
+ID	NUMBER
+CITY	VARCHAR2(21)
+STATE	VARCHAR2(2)
+LAT_N	NUMBER
+LONG_W	NUMBER
+where LAT_N is the northern latitude and LONG_W is the western longitude.
+
+SOLUTION
+
+SELECT DISTINCT CITY FROM STATION WHERE CITY LIKE 'a%a' or CITY LIKE 'a%e' or CITY LIKE 'a%i' or  CITY LIKE 'a%o'or CITY LIKE 'a%u' ;
+
+SELECT DISTINCT CITY FROM STATION WHERE CITY LIKE 'e%a' or CITY LIKE 'e%e' or CITY LIKE 'e%i' or CITY LIKE 'e%o' or  CITY LIKE 'e%u';
+SELECT DISTINCT CITY FROM STATION WHERE CITY LIKE 'i%a' or CITY LIKE 'i%e' or CITY LIKE 'i%i' or CITY LIKE 'i%o' or  CITY LIKE 'i%u';
+
+SELECT DISTINCT CITY FROM STATION WHERE CITY LIKE 'o%a' or CITY LIKE 'o%e' or CITY LIKE 'o%i' or CITY LIKE 'o%o' or  CITY LIKE 'o%u';
+
+SELECT DISTINCT CITY FROM STATION WHERE CITY LIKE 'u%a' or CITY LIKE 'u%e' or CITY LIKE 'u%i' or CITY LIKE 'u%o' or  CITY LIKE 'u%u';
+
