@@ -462,6 +462,54 @@ SOLUTION
 select cast(ceiling(avg(cast(salary as float)) - avg(cast(replace(salary, '0', '') as float))) as int) 
 from employees
 
+#####Generate the following two result sets:
 
+Query an alphabetically ordered list of all names in OCCUPATIONS, immediately followed by the first letter of each profession as a parenthetical (i.e.: enclosed in parentheses). For example: AnActorName(A), ADoctorName(D), AProfessorName(P), and ASingerName(S).
+Query the number of ocurrences of each occupation in OCCUPATIONS. Sort the occurrences in ascending order, and output them in the following format:
 
+There are a total of [occupation_count] [occupation]s.
+where [occupation_count] is the number of occurrences of an occupation in OCCUPATIONS and [occupation] is the lowercase occupation name. If more than one Occupation has the same [occupation_count], they should be ordered alphabetically.
 
+Note: There will be at least two entries in the table for each type of occupation.
+
+Column	Type
+
+NAME	STRING
+occupation	INTEGER
+
+SOLUTION
+
+select concat(name, '(', substring(occupation, 1, 1), ')') as name
+from occupations
+order by name
+select concat('There are a total of', ' ', count(occupation), ' ', 
+lower(occupation), 's.') as JOBS
+from occupations
+group by occupation
+order by JOBS
+;
+
+#######Harry Potter and his friends are at Ollivander's with Ron, finally replacing Charlie's old broken wand.
+
+Hermione decides the best way to choose is by determining the minimum number of gold galleons needed to buy each non-evil wand of high power and age. Write a query to print the id, age, coins_needed, and power of the wands that Ron's interested in, sorted in order of descending power. If more than one wand has same power, sort the result in order of descending age.
+
+SOLUTION
+
+SELECT a.id, 
+   b.age, 
+   a.coins_needed, 
+   a.power 
+FROM   wands a 
+   JOIN wands_property b 
+     ON a.code = b.code 
+WHERE  b.is_evil = 0 
+    AND a.coins_needed = (SELECT Min(a1.coins_needed) 
+    FROM   wands a1 
+        JOIN wands_property b1 
+          ON a1.code = b1.code 
+    WHERE  b.age = b1.age 
+        AND a.power = a1.power) 
+ORDER  BY a.power DESC, 
+          b.age DESC;
+          
+          
